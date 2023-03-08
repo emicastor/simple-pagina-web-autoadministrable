@@ -1,3 +1,7 @@
+<?php
+    $url_base = 'http://localhost/simple-pagina-web-autoadministrable/admin/'; // url que tiene el sitio. Si se sube a un hosting, cambiar y poner el dominio correspondiente.
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,28 +27,28 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#" aria-current="page">Servicios</a>
+                            <a class="nav-link" href="<?= $url_base; ?>secciones/servicios/" aria-current="page">Servicios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Portafolio</a>
+                            <a class="nav-link" href="<?= $url_base; ?>secciones/portafolio">Portafolio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Nosotros</a>
+                            <a class="nav-link" href="<?= $url_base; ?>secciones/nosotros">Nosotros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Equipo</a>
+                            <a class="nav-link" href="<?= $url_base; ?>secciones/equipo">Equipo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Usuarios</a>
+                            <a class="nav-link" href="<?= $url_base; ?>secciones/usuarios/">Usuarios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Configuraciones</a>
+                            <a class="nav-link" href="<?= $url_base; ?>secciones/configuraciones">Configuraciones</a>
                         </li>
                     </ul>
                     <div class="pt-4 pt-lg-0">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="btn btn-outline-secondary d-block" href="#" role="button">Cerrar sesión</a>
+                                <a class="btn btn-outline-secondary d-block" href="<?= $url_base; ?>cerrar" role="button">Cerrar sesión</a>
                             </li>
                         </ul>
                     </div>
@@ -53,4 +57,4 @@
         </nav>
     </header>
 
-    <main class="container">
+    <main class="container mt-5">
