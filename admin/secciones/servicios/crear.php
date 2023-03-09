@@ -1,7 +1,24 @@
-<?php include '../../templates/header.php'; ?>
+<?php 
+    include '../../config/bd.php'; 
 
-<!-- <div class="row"> -->
-<!-- <div class="col-12 col-md-12 col-lg-8 mx-auto"> -->
+    if ($_POST) {
+        // Recibimos los valores envíados por el formulario.
+        $icono = (isset($_POST['icono'])) ? $_POST['icono'] : "";
+        $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
+        $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
+    
+        $sql = "INSERT INTO tbl_servicios (icono, titulo, descripcion) VALUES (:icono, :titulo, :descripcion)";
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->bindParam(':icono', $icono);
+        $sentencia->bindParam(':titulo', $titulo);
+        $sentencia->bindParam(':descripcion', $descripcion);
+        $sentencia->execute();
+    }
+
+    include '../../templates/header.php'; 
+
+?>
+
 <div class="card shadow">
     <div class="card-header py-3 fs-5 fw-semibold text-center">
         Crear un servicio
