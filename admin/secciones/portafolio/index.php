@@ -3,6 +3,29 @@ include '../../config/bd.php';
 
 if (isset($_GET['id'])) {
     $idABorrar = isset($_GET['id']) ? $_GET['id'] : "";
+
+    // Borramos la imagen de la carpeta portafolio
+    $sql = "SELECT
+            imagen
+            FROM
+            tbl_portafolio
+            WHERE
+            id = :id";
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':id', $idABorrar);
+    $sentencia->execute();
+    // Buscamos el registro en cuestión.
+    $registro = $sentencia->fetch(PDO::FETCH_LAZY);
+
+    // Si existe, lo borramos.
+    if (isset($registro['imagen'])) {
+        if (file_exists('../../../assets/img/portafolio/' . $registro['imagen'])) {
+            // unlink = Rorra físicamente la imagen.
+            unlink('../../../assets/img/portafolio/' . $registro['imagen']);
+        }
+    }
+    
+    // Borramos el registro de la bd.
     $sql = "DELETE FROM tbl_portafolio WHERE id=:id";
     $sentencia = $conexion->prepare($sql);
     $sentencia->bindParam(':id', $idABorrar);
@@ -59,7 +82,7 @@ include '../../templates/header.php';
                             <td> <?= $proyecto['titulo']; ?> </td>
                             <td> <?= $proyecto['subtitulo']; ?> </td>
                             <td>
-                                <img class="img-fluid" src="../../../assets/img/portafolio/<?= $proyecto['imagen']; ?>" alt="" width="100" height="100">  
+                                <img class="img-fluid rounded-2" src="../../../assets/img/portafolio/<?= $proyecto['imagen']; ?>" alt="" width="100" height="100">  
                             </td>
                             <td> 
                                 <a class="text-decoration-none badge rounded-pill text-bg-secondary mb-1" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
