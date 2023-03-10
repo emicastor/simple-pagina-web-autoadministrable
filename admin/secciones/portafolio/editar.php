@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../../config/bd.php';
 // Hacemos la consulta.
 if (isset($_GET['id'])) {
@@ -27,7 +27,6 @@ if ($_POST) {
     $idAEditar = (isset($_POST['id'])) ? $_POST['id'] : "";
     $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
     $subtitulo = (isset($_POST['subtitulo'])) ? $_POST['subtitulo'] : "";
-    $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";    
     $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
     $cliente = (isset($_POST['cliente'])) ? $_POST['cliente'] : "";
     $categoria = (isset($_POST['categoria'])) ? $_POST['categoria'] : "";
@@ -54,11 +53,38 @@ if ($_POST) {
     $sentencia->bindParam(':categoria', $categoria);
     $sentencia->bindParam(':url', $url);
     $sentencia->execute();
+
+    // Si hay una imagen...
+    if (!empty($_FILES['imagen']['name'])) {
+
+        $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";
+
+        // Adjuntamos imagen
+        $fechaImagen = new DateTime();
+        $nombreArchivoImagen = (!empty($imagen)) ? $fechaImagen->getTimestamp() . '_' . $imagen : '';
+        $tmpImagen = $_FILES['imagen']['tmp_name'];
+
+        if (!empty($tmpImagen)) {
+            move_uploaded_file($tmpImagen, '../../../assets/img/portafolio/' . $nombreArchivoImagen);
+        }
+
+        $sql = "UPDATE
+            tbl_portafolio
+            SET
+            imagen = :imagen
+            WHERE
+            id = :id";
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->bindParam(':imagen', $nombreArchivoImagen);
+        $sentencia->bindParam(':id', $idAEditar);
+        $sentencia->execute();
+    }
+    
     $mensaje = 'Proyecto modificado con éxito.';
-    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/portafolio/?mensaje='.$mensaje);
+    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/portafolio/?mensaje=' . $mensaje);
 }
 
-include '../../templates/header.php'; 
+include '../../templates/header.php';
 ?>
 
 
@@ -99,7 +125,7 @@ include '../../templates/header.php';
                     <div class="mb-4">
                         <label for="imagen" class="form-label fw-semibold">Imagen</label>
                         <br>
-                        <img class="img-fluid" src="../../../assets/img/portafolio/<?= $imagen; ?>" alt="" width="100" height="100">  
+                        <img class="img-fluid rounded-2" src="../../../assets/img/portafolio/<?= $imagen; ?>" alt="" width="100" height="100">
                         <input type="file" class="form-control shadow-sm mt-2" name="imagen" id="imagen" aria-describedby="helpId" placeholder="">
                     </div>
                     <div class="mb-4">
