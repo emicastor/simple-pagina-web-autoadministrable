@@ -57,7 +57,7 @@ include '../../templates/header.php';
                             <td> <?= $servicio['descripcion']; ?> </td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <a name="" id="" class="btn btn-primary btn-sm fw-semibold px-3" href="#" role="button" title="Editar el registro">
+                                    <a name="" id="" class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>/secciones/servicios/editar?id=<?= $servicio['id']; ?>" role="button" title="Editar el registro">
                                         Editar
                                     </a>
                                     <a name="" id="" class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>/secciones/servicios/?id=<?= $servicio['id']; ?>" role="button" title="Eliminar el registro">
