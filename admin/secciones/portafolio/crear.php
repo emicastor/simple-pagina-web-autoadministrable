@@ -1,6 +1,33 @@
 <?php 
 include '../../config/bd.php';
 
+if ($_POST) {
+
+    // Recibimos los valores enviados en el formulario.
+    $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
+    $subtitulo = (isset($_POST['subtitulo'])) ? $_POST['subtitulo'] : "";
+    $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";    
+    $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
+    $cliente = (isset($_POST['cliente'])) ? $_POST['cliente'] : "";
+    $categoria = (isset($_POST['categoria'])) ? $_POST['categoria'] : "";
+    $url = (isset($_POST['url'])) ? $_POST['url'] : "";
+    
+    $sql = "INSERT INTO 
+            tbl_portafolio (titulo, subtitulo, imagen, descripcion, cliente, categoria, url) 
+            VALUES 
+            (:titulo, :subtitulo, :imagen, :descripcion, :cliente, :categoria, :url)";
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':titulo', $titulo);
+    $sentencia->bindParam(':subtitulo', $subtitulo);
+    $sentencia->bindParam(':imagen', $imagen);
+    $sentencia->bindParam(':descripcion', $descripcion);
+    $sentencia->bindParam(':cliente', $cliente);
+    $sentencia->bindParam(':categoria', $categoria);
+    $sentencia->bindParam(':url', $url);
+    $sentencia->execute();
+
+
+}
 include '../../templates/header.php'; 
 ?>
 
