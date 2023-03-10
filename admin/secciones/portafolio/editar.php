@@ -23,6 +23,40 @@ if (isset($_GET['id'])) {
     $url = $registro['url'];
 }
 
+if ($_POST) {
+    $idAEditar = (isset($_POST['id'])) ? $_POST['id'] : "";
+    $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
+    $subtitulo = (isset($_POST['subtitulo'])) ? $_POST['subtitulo'] : "";
+    $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";    
+    $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
+    $cliente = (isset($_POST['cliente'])) ? $_POST['cliente'] : "";
+    $categoria = (isset($_POST['categoria'])) ? $_POST['categoria'] : "";
+    $url = (isset($_POST['url'])) ? $_POST['url'] : "";
+
+    $sql = "UPDATE
+            tbl_portafolio
+            SET
+            titulo = :titulo,
+            subtitulo = :subtitulo,
+            descripcion = :descripcion,
+            cliente = :cliente,
+            categoria = :categoria,
+            url = :url
+            WHERE
+            id = :id";
+
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':id', $idAEditar);
+    $sentencia->bindParam(':titulo', $titulo);
+    $sentencia->bindParam(':subtitulo', $subtitulo);
+    $sentencia->bindParam(':descripcion', $descripcion);
+    $sentencia->bindParam(':cliente', $cliente);
+    $sentencia->bindParam(':categoria', $categoria);
+    $sentencia->bindParam(':url', $url);
+    $sentencia->execute();
+    $mensaje = 'Proyecto modificado con éxito.';
+    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/portafolio/?mensaje='.$mensaje);
+}
 
 include '../../templates/header.php'; 
 ?>
@@ -30,17 +64,17 @@ include '../../templates/header.php';
 
 
 <!---------------------------------------------------->
+<?= print_r($url_base); ?>
 
 <h1 class="mb-4 pb-3 border-bottom">Portafolio</h1>
-
-<a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/portafolio" role="button">
+<a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>secciones/portafolio" role="button">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left mb-1 me-1" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
     </svg>
     Volver
 </a>
 <div>
-    <a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>/secciones/portafolio" role="button">Ver lista de proyectos</a>
+    <a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>secciones/portafolio" role="button">Ver lista de proyectos</a>
 </div>
 
 <div class="card shadow">
@@ -88,7 +122,7 @@ include '../../templates/header.php';
                     </div>
 
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Actualizar</button>
-                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>/secciones/portafolio" role="button">Cancelar</a>
+                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>secciones/portafolio" role="button">Cancelar</a>
                 </form>
             </div>
         </div>
