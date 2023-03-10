@@ -1,27 +1,42 @@
-<?php 
-    include '../../config/bd.php'; 
+<?php
+include '../../config/bd.php';
 
-    if ($_POST) {
-        // Recibimos los valores envíados por el formulario.
-        $icono = (isset($_POST['icono'])) ? $_POST['icono'] : "";
-        $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
-        $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
-    
-        $sql = "INSERT INTO tbl_servicios (icono, titulo, descripcion) VALUES (:icono, :titulo, :descripcion)";
-        $sentencia = $conexion->prepare($sql);
-        $sentencia->bindParam(':icono', $icono);
-        $sentencia->bindParam(':titulo', $titulo);
-        $sentencia->bindParam(':descripcion', $descripcion);
-        $sentencia->execute();
-    }
+if ($_POST) {
+    // Recibimos los valores envíados por el formulario.
+    $icono = (isset($_POST['icono'])) ? $_POST['icono'] : "";
+    $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
+    $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
 
-    include '../../templates/header.php'; 
+    $sql = "INSERT INTO tbl_servicios (icono, titulo, descripcion) VALUES (:icono, :titulo, :descripcion)";
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':icono', $icono);
+    $sentencia->bindParam(':titulo', $titulo);
+    $sentencia->bindParam(':descripcion', $descripcion);
+    $sentencia->execute();
+}
+
+include '../../templates/header.php';
 
 ?>
 
+<!---------------------------------------------------->
+
+<h1 class="mb-4 pb-3 border-bottom">Servicios</h1>
+
+<a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/servicios" role="button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left mb-1 me-1" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+    </svg>
+    Volver
+</a>
+<div>
+<a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>/secciones/servicios" role="button">Ver lista de servicios</a>
+<a class="btn btn-warning fw-semibold mb-4" href="http://localhost/simple-pagina-web-autoadministrable/#servicios" role="button">Ver cambios realizados</a>
+</div>
+
 <div class="card shadow">
     <div class="card-header py-3 fs-5 fw-semibold text-center">
-        Crear un servicio
+        Crear un servicio nuevo
     </div>
     <div class="card-body">
         <div class="row">
@@ -46,11 +61,6 @@
             </div>
         </div>
     </div>
-    <div class="card-footer text-muted">
-    </div>
-
 </div>
-<!-- </div> -->
-<!-- </div> -->
 
 <?php include '../../templates/footer.php'; ?>
