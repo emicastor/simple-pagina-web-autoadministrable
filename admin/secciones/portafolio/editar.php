@@ -55,19 +55,38 @@ if ($_POST) {
     $sentencia->execute();
 
     // Si hay una imagen...
-    if (!empty($_FILES['imagen']['name'])) {
+    if (!empty($_FILES['imagen']['tmp_name'])) {
 
         $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";
-
         // Adjuntamos imagen
         $fechaImagen = new DateTime();
         $nombreArchivoImagen = (!empty($imagen)) ? $fechaImagen->getTimestamp() . '_' . $imagen : '';
         $tmpImagen = $_FILES['imagen']['tmp_name'];
 
-        if (!empty($tmpImagen)) {
-            move_uploaded_file($tmpImagen, '../../../assets/img/portafolio/' . $nombreArchivoImagen);
+        move_uploaded_file($tmpImagen, '../../../assets/img/portafolio/' . $nombreArchivoImagen);
+
+        // Borramos la imagen anterior de la carpeta portafolio
+        $sql = "SELECT
+                imagen
+                FROM
+                tbl_portafolio
+                WHERE
+                id = :id";
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->bindParam(':id', $idAEditar);
+        $sentencia->execute();
+        // Buscamos el registro en cuestión.
+        $registro = $sentencia->fetch(PDO::FETCH_LAZY);
+
+        // Si existe, lo borramos.
+        if (isset($registro['imagen'])) {
+            if (file_exists('../../../assets/img/portafolio/' . $registro['imagen'])) {
+                // unlink = Rorra físicamente la imagen.
+                unlink('../../../assets/img/portafolio/' . $registro['imagen']);
+            }
         }
 
+        // // Actualizamos la bd.
         $sql = "UPDATE
             tbl_portafolio
             SET
@@ -78,6 +97,7 @@ if ($_POST) {
         $sentencia->bindParam(':imagen', $nombreArchivoImagen);
         $sentencia->bindParam(':id', $idAEditar);
         $sentencia->execute();
+        
     }
     
     $mensaje = 'Proyecto modificado con éxito.';
