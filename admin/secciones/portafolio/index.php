@@ -1,11 +1,11 @@
-<?php 
+<?php
 include '../../config/bd.php';
 
 $sql = "SELECT * FROM tbl_portafolio";
 $sentencia = $conexion->prepare($sql);
 $sentencia->execute();
 $lista_portafolio = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-include '../../templates/header.php'; 
+include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------->
@@ -24,15 +24,15 @@ include '../../templates/header.php';
 
 <div class="card shadow">
     <div class="card-header py-3 fs-5 fw-semibold text-center">
-       Proyectos publicados en su página web
+        Proyectos publicados en su página web
     </div>
     <div class="card-body">
 
-        <div class="table-responsive-sm">
+        <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                    <th scope="col">ID</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Título</th>
                         <th scope="col">Subtítulo</th>
                         <th scope="col">Imagen</th>
@@ -44,18 +44,29 @@ include '../../templates/header.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($lista_servicios as $servicio) { ?>
+                    <?php foreach ($lista_portafolio as $proyecto) { ?>
                         <tr>
-                            <td scope="row"> <?= $servicio['id']; ?> </td>
-                            <td> <?= $servicio['icono']; ?> </td>
-                            <td> <?= $servicio['titulo']; ?> </td>
-                            <td> <?= $servicio['descripcion']; ?> </td>
+                            <td scope="row"> <?= $proyecto['id']; ?> </td>
+                            <td> <?= $proyecto['titulo']; ?> </td>
+                            <td> <?= $proyecto['subtitulo']; ?> </td>
+                            <td> <?= $proyecto['imagen']; ?> </td>
+                            <td> 
+                                <a class="text-decoration-none badge rounded-pill text-bg-secondary mb-1" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    Ver
+                                </a>
+                                <div class="collapse" id="collapseExample">
+                                    <?= $proyecto['descripcion']; ?>
+                                </div>
+                            </td>
+                            <td> <?= $proyecto['cliente']; ?> </td>
+                            <td> <?= $proyecto['categoria']; ?> </td>
+                            <td> <?= $proyecto['url']; ?> </td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <a name="" id="" class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>/secciones/servicios/editar?id=<?= $servicio['id']; ?>" role="button" title="Editar el registro">
+                                    <a class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>/secciones/portafolio/editar?id=<?= $proyecto['id']; ?>" role="button" title="Editar el registro">
                                         Editar
                                     </a>
-                                    <a name="" id="" class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>/secciones/servicios/?id=<?= $servicio['id']; ?>" role="button" title="Eliminar el registro">
+                                    <a class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>/secciones/portafolio/?id=<?= $proyecto['id']; ?>" role="button" title="Eliminar el registro">
                                         Eliminar
                                     </a>
                                 </div>
