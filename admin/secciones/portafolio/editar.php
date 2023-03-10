@@ -64,7 +64,6 @@ include '../../templates/header.php';
 
 
 <!---------------------------------------------------->
-<?= print_r($url_base); ?>
 
 <h1 class="mb-4 pb-3 border-bottom">Portafolio</h1>
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>secciones/portafolio" role="button">
@@ -100,7 +99,7 @@ include '../../templates/header.php';
                     <div class="mb-4">
                         <label for="imagen" class="form-label fw-semibold">Imagen</label>
                         <br>
-                        <?= $imagen; ?>
+                        <img class="img-fluid" src="../../../assets/img/portafolio/<?= $imagen; ?>" alt="" width="100" height="100">  
                         <input type="file" class="form-control shadow-sm mt-2" name="imagen" id="imagen" aria-describedby="helpId" placeholder="">
                     </div>
                     <div class="mb-4">
