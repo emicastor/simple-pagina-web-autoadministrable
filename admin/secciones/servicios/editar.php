@@ -1,6 +1,7 @@
 <?php
 include '../../config/bd.php';
 
+// Recupeamos la información.
 if (isset($_GET['id'])) {
     $idAEditar = isset($_GET['id']) ? $_GET['id'] : "";
     $sql = "SELECT * FROM tbl_servicios WHERE id=:id";
@@ -14,6 +15,27 @@ if (isset($_GET['id'])) {
     $icono = $registro['icono'];
     $titulo = $registro['titulo'];
     $descripcion = $registro['descripcion'];
+}
+
+// Actualizamos la información.
+if ($_POST) {
+    $idAEditar = (isset($_POST['id'])) ? $_POST['id'] : "";
+    $icono = (isset($_POST['icono'])) ? $_POST['icono'] : "";
+    $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
+    $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
+
+    $sql = "UPDATE tbl_servicios 
+            SET icono = :icono, titulo = :titulo, descripcion = :descripcion 
+            WHERE id = :id";
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':id', $idAEditar);
+    $sentencia->bindParam(':icono', $icono);
+    $sentencia->bindParam(':titulo', $titulo);
+    $sentencia->bindParam(':descripcion', $descripcion);
+    $sentencia->execute();
+    $mensaje = 'Servicio modificado con éxito.';
+    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/servicios/?mensaje='.$mensaje);
+
 }
 
 include '../../templates/header.php';
@@ -47,7 +69,7 @@ include '../../templates/header.php';
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="id" class="form-label fw-semibold">Id</label>
-                        <input value="<?= $idAEditar ; ?>" type="text" class="form-control shadow-sm" name="id" id="id" aria-describedby="helpId" placeholder="">
+                        <input value="<?= $idAEditar ; ?>" type="text" class="form-control shadow-sm" name="id" id="id" aria-describedby="helpId" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="icono" class="form-label fw-semibold">Ícono</label>
@@ -62,7 +84,7 @@ include '../../templates/header.php';
                         <input value="<?= $descripcion; ?>" type="text" class="form-control shadow-sm" name="descripcion" id="descripcion" aria-describedby="helpId" placeholder="">
                     </div>
 
-                    <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Agregar</button>
+                    <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Actualizar</button>
                     <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>/secciones/servicios" role="button">Cancelar</a>
                 </form>
             </div>
