@@ -33,7 +33,7 @@ include '../../templates/header.php';
 
 <div class="card shadow">
     <div class="card-header py-3 fs-5 fw-semibold text-center">
-       Lista de servicios
+       Lista de servicios publicados en su página web
     </div>
     <div class="card-body">
 
