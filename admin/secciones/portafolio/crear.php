@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../../config/bd.php';
 
 if ($_POST) {
@@ -6,16 +6,26 @@ if ($_POST) {
     // Recibimos los valores enviados en el formulario.
     $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
     $subtitulo = (isset($_POST['subtitulo'])) ? $_POST['subtitulo'] : "";
-    $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";    
+    $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";
     $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
     $cliente = (isset($_POST['cliente'])) ? $_POST['cliente'] : "";
     $categoria = (isset($_POST['categoria'])) ? $_POST['categoria'] : "";
     $url = (isset($_POST['url'])) ? $_POST['url'] : "";
-    
+
+    // Adjuntamos imagen
+    $fechaImagen = new DateTime();
+    $nombreArchivoImagen = (!empty($imagen)) ? $fechaImagen->getTimestamp() . '_' . $imagen : '';
+    $tmpImagen = $_FILES['imagen']['tmp_name'];
+
+    if (!empty($tmpImagen)) {
+        move_uploaded_file($tmpImagen, '../../../assets/img/portafolio/' . $nombreArchivoImagen);
+    }
+
     $sql = "INSERT INTO 
             tbl_portafolio (titulo, subtitulo, imagen, descripcion, cliente, categoria, url) 
             VALUES 
             (:titulo, :subtitulo, :imagen, :descripcion, :cliente, :categoria, :url)";
+
     $sentencia = $conexion->prepare($sql);
     $sentencia->bindParam(':titulo', $titulo);
     $sentencia->bindParam(':subtitulo', $subtitulo);
@@ -25,10 +35,8 @@ if ($_POST) {
     $sentencia->bindParam(':categoria', $categoria);
     $sentencia->bindParam(':url', $url);
     $sentencia->execute();
-
-
 }
-include '../../templates/header.php'; 
+include '../../templates/header.php';
 ?>
 
 
@@ -43,8 +51,8 @@ include '../../templates/header.php';
     Volver
 </a>
 <div>
-<a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>/secciones/portafolio" role="button">Ver lista de proyectos</a>
-<a class="btn btn-warning fw-semibold mb-4" href="http://localhost/simple-pagina-web-autoadministrable/#portafolio" role="button">Ver cambios realizados</a>
+    <a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>/secciones/portafolio" role="button">Ver lista de proyectos</a>
+    <a class="btn btn-warning fw-semibold mb-4" href="http://localhost/simple-pagina-web-autoadministrable/#portafolio" role="button">Ver cambios realizados</a>
 </div>
 
 <div class="card shadow">
