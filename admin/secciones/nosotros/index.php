@@ -16,8 +16,8 @@ if (isset($_GET['id'])) {
     $registro = $sentencia->fetch(PDO::FETCH_LAZY);
 
     if (isset($registro['imagen'])) {
-        if (file_exists('../../../assets/img/sobre-mi' . $registro['imagen'])) {
-            unlink('../../../assets/img/sobre-mi' . $registro['imagen']);
+        if (file_exists('../../../assets/img/nosotros/' . $registro['imagen'])) {
+            unlink('../../../assets/img/nosotros/' . $registro['imagen']);
         }
     }
 
@@ -89,7 +89,7 @@ include '../../templates/header.php';
                                 </div>
                             </td>
                             <td>
-                                <img class="img-fluid rounded-2" src="../../../assets/img/portafolio/<?= $item['imagen']; ?>" alt="" width="100" height="100">  
+                                <img class="img-fluid rounded-2" src="../../../assets/img/nosotros/<?= $item['imagen']; ?>" alt="" width="100" height="100">  
                             </td>
                             <td>
                                 <div class="d-flex gap-2">
