@@ -22,6 +22,78 @@ if (isset($_GET['id'])) {
     // No crear las variables que hicimos arriba y usar en los values de los inputs el $registro['nombrecolumnaBD'];
 }
 
+// Actualizamos la información del registro.
+if ($_POST) {
+    $idAEditar = (isset($_GET['id'])) ? $_GET['id'] : '';
+    $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : "";
+    $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
+    $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
+
+    $sql = "UPDATE
+            tbl_nosotros
+            SET
+            fecha = :fecha,
+            titulo = :titulo,
+            descripcion = :descripcion
+            WHERE
+            id = :id";
+
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':id', $idAEditar);
+    $sentencia->bindParam(':fecha', $fecha);
+    $sentencia->bindParam(':titulo', $titulo);
+    $sentencia->bindParam(':descripcion', $descripcion);
+    $sentencia->execute();
+
+    // Si hay una imagen...
+    if (!empty($_FILES['imagen']['tmp_name'])) {
+
+        $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";
+        // Adjuntamos imagen
+        $fechaImagen = new DateTime();
+        $nombreArchivoImagen = (!empty($imagen)) ? $fechaImagen->getTimestamp() . '_' . $imagen : '';
+        $tmpImagen = $_FILES['imagen']['tmp_name'];
+
+        move_uploaded_file($tmpImagen, '../../../assets/img/nosotros/' . $nombreArchivoImagen);
+
+        // Borramos la imagen anterior de la carpeta portafolio
+        $sql = "SELECT
+                imagen
+                FROM
+                tbl_nosotros
+                WHERE
+                id = :id";
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->bindParam(':id', $idAEditar);
+        $sentencia->execute();
+        // Buscamos el registro en cuestión.
+        $registro = $sentencia->fetch(PDO::FETCH_LAZY);
+
+        // Si existe, lo borramos.
+        if (isset($registro['imagen'])) {
+            if (file_exists('../../../assets/img/nosotros/' . $registro['imagen'])) {
+                // unlink = Rorra físicamente la imagen.
+                unlink('../../../assets/img/nosotros/' . $registro['imagen']);
+            }
+        }
+
+        // // Actualizamos la bd.
+        $sql = "UPDATE
+            tbl_nosotros
+            SET
+            imagen = :imagen
+            WHERE
+            id = :id";
+        $sentencia = $conexion->prepare($sql);
+        $sentencia->bindParam(':imagen', $nombreArchivoImagen);
+        $sentencia->bindParam(':id', $idAEditar);
+        $sentencia->execute();
+    }
+
+    $mensaje = 'Proyecto modificado con éxito.';
+    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/nosotros/?mensaje=' . $mensaje);
+}
+
 
 
 
