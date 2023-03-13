@@ -70,16 +70,17 @@ include '../../templates/header.php';
                         <input type="file" class="form-control shadow-sm" name="imagen" id="imagen" aria-describedby="helpId" placeholder="">
                     </div>
                     <label for="twitter" class="form-label fw-semibold mb-3">Redes sociales</label>
-                    <div class="mb-3">
-                        <label for="twitter" class="form-label fw-semibold">Twitter</label>
-                        <input type="text" class="form-control shadow-sm" name="twitter" id="twitter" aria-describedby="helpId" placeholder="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">www.twitter.com/</span>
+                        <input type="text" class="form-control shadow-sm" name="twitter" id="twitter" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Nombre de usuario">
                     </div>
-                    <div class="mb-3">
-                        <label for="facebook" class="form-label fw-semibold">Facebook</label>
-                        <input type="text" class="form-control shadow-sm" name="facebook" id="facebook" aria-describedby="helpId" placeholder="">
-                    </div><div class="mb-3">
-                        <label for="linkedin" class="form-label fw-semibold">Linkedin</label>
-                        <input type="text" class="form-control shadow-sm" name="linkedin" id="linkedin" aria-describedby="helpId" placeholder="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">www.facebook.com/</span>
+                        <input type="text" class="form-control shadow-sm" name="facebook" id="facebook" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Nombre de usuario">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">www.linkedin.com/in/</span>
+                        <input type="text" class="form-control shadow-sm" name="linkedin" id="linkedin" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Nombre de usuario">
                     </div>
                     
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Agregar</button>
