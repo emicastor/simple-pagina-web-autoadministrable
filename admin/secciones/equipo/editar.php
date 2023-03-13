@@ -141,18 +141,18 @@ include '../../templates/header.php';
                         <img class="img-fluid rounded-2 border" src="../../../assets/img/equipo/<?= $imagen; ?>" alt="" width="100" height="100">
                         <input type="file" class="form-control shadow-sm mt-2" name="imagen" id="imagen" aria-describedby="helpId" placeholder="">
                     </div>
-                    <label for="twitter" class="form-label fw-semibold mb-3">Redes sociales</label>
+                    <label for="" class="form-label fw-semibold mb-3">Redes sociales</label>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">www.twitter.com/</span>
                         <input value="<?= $twitter; ?>" type="text" class="form-control shadow-sm" name="twitter" id="twitter" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">www.facebook.com/</span>
-                        <input value="<?= $facebook; ?>" type="text" class="form-control shadow-sm" name="twitter" id="twitter" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input value="<?= $facebook; ?>" type="text" class="form-control shadow-sm" name="facebook" id="facebook" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">www.linkedin.com/in/</span>
-                        <input value="<?= $linkedin; ?>" type="text" class="form-control shadow-sm" name="twitter" id="twitter" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input value="<?= $linkedin; ?>" type="text" class="form-control shadow-sm" name="linkedin" id="linkedin" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
 
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Actualizar</button>
