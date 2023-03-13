@@ -1,6 +1,37 @@
 <?php
 include '../../config/bd.php';
-include '../../templates/header.php';
+
+if (isset($_GET['id'])) {
+    $idABorrar = (isset($_GET['id'])) ? $_GET['id'] : "";
+
+    // Borramos la imagen de la carpeta portafolio
+    $sql = "SELECT
+            imagen
+            FROM
+            tbl_equipo
+            WHERE
+            id = :id";
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':id', $idABorrar);
+    $sentencia->execute();
+    // Buscamos el registro en cuestión.
+    $registro = $sentencia->fetch(PDO::FETCH_LAZY);
+
+    // Si existe, lo borramos.
+    if (isset($registro['imagen'])) {
+        if (file_exists('../../../assets/img/equipo/' . $registro['imagen'])) {
+            // unlink = Rorra físicamente la imagen.
+            unlink('../../../assets/img/equipo/' . $registro['imagen']);
+        }
+    }
+    
+    // Borramos el registro de la bd.
+    $sql = "DELETE FROM tbl_equipo WHERE id=:id";
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':id', $idABorrar);
+    $sentencia->execute();
+    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/equipo/');
+}
 
 $sql = "SELECT *
         FROM
@@ -9,6 +40,7 @@ $sentencia = $conexion->prepare($sql);
 $sentencia->execute();
 $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
+include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------->
@@ -36,9 +68,9 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Puesto</th>
-                        <th scope="col">Imagen</th>
                         <th scope="col">Redes</th>
                         <th scope="col">Acciones</th>
                     </tr>
@@ -47,12 +79,12 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                     <?php foreach ($lista_equipo as $item) { ?>
                         <tr>
                             <td scope="row"> <?= $item['id']; ?> </td>
-                            <td> <?= $item['nombrecompleto']; ?> </td>
-                            <td> <?= $item['puesto']; ?> </td>
                             <td>
                                 <img class="img-fluid rounded-2 img border"
                                  src="../../../assets/img/equipo/<?= $item['imagen']; ?>" alt="" width="100" height="100">
                             </td>
+                            <td> <?= $item['nombrecompleto']; ?> </td>
+                            <td> <?= $item['puesto']; ?> </td>
                             <td>
                                 <div class="d-flex gap-2">
                                     <a href="<?= $item['facebook']; ?>" class="text-decoration-none" title="Facebook">
