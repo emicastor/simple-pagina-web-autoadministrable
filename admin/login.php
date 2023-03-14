@@ -1,5 +1,36 @@
-<?php require_once 'config/bd.php'; ?>
+<?php 
+session_start();
+if ($_POST) {
+    include 'config/bd.php'; 
+    $usuario = (isset($_POST['usuario'])) ? trim($_POST['usuario']) : '';
+    $password = (isset($_POST['password'])) ? trim($_POST['password']) : '';
+    $sql = "SELECT 
+            usuario, password, count(*) as num_usuario
+            FROM
+            tbl_usuarios
+            WHERE
+            usuario = :usuario
+            AND
+            password = :password";
 
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':usuario', $usuario);
+    $sentencia->bindParam(':password', $password);
+    $sentencia->execute();
+    $lista_usuarios = $sentencia->fetch(PDO::FETCH_LAZY);
+    print_r($lista_usuarios);
+
+    if ($lista_usuarios['num_usuario'] > 0) {
+        print_r('El usuario y contraseña existe');
+        $_SESSION['usuario'] = $lista_usuarios['usuario'];
+        $_SESSION['logueado'] = true;
+        header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/');
+    } else {
+        print_r('El usuario o la contraseña no existe.');
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -34,7 +65,9 @@
                                 <input type="password" class="form-control shadow-sm" name="password" id="password" placeholder="Contraseña">
                                 <label for="password">Contraseña</label>
                             </div>
-                            <a href="index" class="btn btn-primary btn-lg d-block fw-semibold mt-4">Iniciar sesión</a>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg fw-semibold mt-3">Iniciar sesión</button>
+                            </div>
                         </form>
                     </div>
                 </div>
