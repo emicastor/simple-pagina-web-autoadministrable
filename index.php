@@ -18,6 +18,12 @@ $sql = "SELECT * FROM tbl_nosotros";
 $sentencia = $conexion->prepare($sql);
 $sentencia->execute();
 $lista_nosotros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+// Sección equipo
+$sql = "SELECT * FROM tbl_equipo";
+$sentencia = $conexion->prepare($sql);
+$sentencia->execute();
+$lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -60,11 +66,11 @@ $lista_nosotros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#servicios">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
                     <li class="nav-item"><a class="nav-link" href="#portafolio">Portafolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#equipo">Equipo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
             </div>
         </div>
@@ -74,15 +80,15 @@ $lista_nosotros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         <div class="container">
             <div class="masthead-subheading">Welcome To Our Studio!</div>
             <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-primary btn-xl text-uppercase" href="#servicios">Tell Me More</a>
+            <a class="btn btn-primary btn-xl text-dark fw-semibold" href="#servicios">COTIZACIÓN ¡GRATIS!</a>
         </div>
     </header>
     <!-- Services-->
     <section class="page-section" id="servicios">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Services</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase">Servicios</h2>
+                <h3 class="section-subheading text-muted">El low-cost que te conviene</h3>
             </div>
             <div class="row text-center">
 
@@ -105,7 +111,7 @@ $lista_nosotros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Portafolio</h2>
-                <h3 class="section-subheading text-muted">Revisa mis últimos trabajos.</h3>
+                <h3 class="section-subheading text-muted">Revisá mis últimos trabajos</h3>
             </div>
             <div class="row">
                 <!-- Portfolio items -->
@@ -173,16 +179,14 @@ $lista_nosotros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Historia</h2>
-                <h3 class="section-subheading text-muted">El paso a paso para llegar a donde estoy hoy.</h3>
+                <h3 class="section-subheading text-muted">El paso a paso para llegar a donde estoy hoy</h3>
             </div>
             <ul class="timeline">
-                <?php 
+                <?php
                 $cont = 1;
                 foreach ($lista_nosotros as $registro) { ?>
                     <!-- Si el resto es igual a 0, quiere decir que es par y entonces va a estar ubicado del lado derecho de la pantalla ya que agrego a <li> la clase timeline-inverted -->
-                    <li 
-                    <?= (($cont % 2) == 0) ? 'class="timeline-inverted"' : "" ;?>
-                    >
+                    <li <?= (($cont % 2) == 0) ? 'class="timeline-inverted"' : ""; ?>>
                         <div class="timeline-image"><img class="rounded-circle img-fluid img" src="assets/img/nosotros/<?= $registro['imagen']; ?>" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
@@ -194,10 +198,10 @@ $lista_nosotros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </li>
-                <?php 
-                $cont ++ ;
+                <?php
+                    $cont++;
                 }; ?>
-                
+
                 <li class="timeline-inverted">
                     <div class="timeline-image">
                         <h4>
@@ -212,54 +216,36 @@ $lista_nosotros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             </ul>
         </div>
     </section>
-    <!-- Team-->
+    <!-- Equipo-->
     <section class="page-section bg-light" id="team">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase">Equipo</h2>
+                <h3 class="section-subheading text-muted">Me acompañan los mejores profesionales en su rubro</h3>
             </div>
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="assets/img/team/1.jpg" alt="..." />
-                        <h4>Parveen Anand</h4>
-                        <p class="text-muted">Lead Designer</p>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                <?php foreach ($lista_equipo as $item) { ?>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <img class="mx-auto rounded-circle img" src="assets/img/equipo/<?= $item['imagen']; ?>" alt="..." />
+                            <h4><?= $item['nombrecompleto']; ?></h4>
+                            <p class="text-muted"><?= $item['puesto']; ?></p>
+                            <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/<?= $item['twitter']; ?>" aria-label="Parveen Anand Twitter Profile" target="_blank"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="https://facebook.com/<?= $item['facebook']; ?>" aria-label="Parveen Anand Facebook Profile" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="https://linkedin.com/in/<?= $item['linkedin']; ?>" aria-label="Parveen Anand LinkedIn Profile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="assets/img/team/2.jpg" alt="..." />
-                        <h4>Diana Petersen</h4>
-                        <p class="text-muted">Lead Marketer</p>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="assets/img/team/3.jpg" alt="..." />
-                        <h4>Larry Parker</h4>
-                        <p class="text-muted">Lead Developer</p>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-8 mx-auto text-center">
-                    <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                    <p class="large text-muted">Estamos para ayudarlo a mejorar en su rubro sea cual fuere éste, ya que siempre hay una imagen que exhibir.</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
     <!-- Clients-->
-    <div class="py-5">
+    <!-- <div class="py-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-3 col-sm-6 my-3">
@@ -276,86 +262,47 @@ $lista_nosotros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Contact-->
-    <section class="page-section" id="contact">
+    </div> -->
+    <!-- Contacto-->
+    <section class="page-section bg-dark" id="contacto">
         <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">Contact Us</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <div class="row text-center text-md-start">
+                <div class="col-lg-9 text-white">
+                    <h2 class="section-heading">Siempre habrá una imagen que recordar</h2>
+                    <h3 class="mb-5 mb-lg-0">Y nosotros estaremos allí para hacerlo <span class="text-decoration-underline">realidad</span></h3>
+                </div>
+                <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                    <a class="btn btn-primary btn-xl text-dark fw-semibold" href="mailto:contacto@emicastor.com.ar" role="button">CONTACTANOS</a>
+                </div>
             </div>
-            <!-- * * * * * * * * * * * * * * *-->
-            <!-- * * SB Forms Contact Form * *-->
-            <!-- * * * * * * * * * * * * * * *-->
-            <!-- This form is pre-integrated with SB Forms.-->
-            <!-- To make this form functional, sign up at-->
-            <!-- https://startbootstrap.com/solution/contact-forms-->
-            <!-- to get an API token!-->
-            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                <div class="row align-items-stretch mb-5">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- Name input-->
-                            <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
-                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                        </div>
-                        <div class="form-group">
-                            <!-- Email address input-->
-                            <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                            <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                            <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                        </div>
-                        <div class="form-group mb-md-0">
-                            <!-- Phone number input-->
-                            <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                            <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group form-group-textarea mb-md-0">
-                            <!-- Message input-->
-                            <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
-                            <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Submit success message-->
-                <!---->
-                <!-- This is what your users will see when the form-->
-                <!-- has successfully submitted-->
-                <div class="d-none" id="submitSuccessMessage">
-                    <div class="text-center text-white mb-3">
-                        <div class="fw-bolder">Form submission successful!</div>
-                        To activate this form, sign up at
-                        <br />
-                        <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                    </div>
-                </div>
-                <!-- Submit error message-->
-                <!---->
-                <!-- This is what your users will see when there is-->
-                <!-- an error submitting the form-->
-                <div class="d-none" id="submitErrorMessage">
-                    <div class="text-center text-danger mb-3">Error sending message!</div>
-                </div>
-                <!-- Submit Button-->
-                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
-            </form>
+        </div>
         </div>
     </section>
     <!-- Footer-->
-    <footer class="footer py-4">
+    <footer class="footer py-5 my-lg-5">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
-                <div class="col-lg-4 my-3 my-lg-0">
+                <div class="col-lg-4 text-lg-start mt-2 mt-lg-0 order-3 order-lg-0" id="year"></div>
+                <div class="col-lg-4 my-3 my-lg-0 order-2 order-lg-0">
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <div class="col-lg-4 text-lg-end">
-                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                    <ul class="nav d-flex justify-content-center">
+                        <li class="nav-item"><a class="nav-link text-dark" href="#servicios">Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" href="#portafolio">Portafolio</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" href="#nosotros">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" href="#equipo">Equipo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row align-items-center mt-5 pt-2">
+                <div class="col-6 col-sm-4 col-lg-2 mx-auto">
+                    <a href="https://emicastor.com.ar/agencia" class="d-flex flex-column align-items-center text-decoration-none mb-2 pb-2">
+                        <span class="text-dark fw-semibold">Emiliano Castor</span>
+                        <span class="px-1 bg-dark text-white fw-semibold" style="font-size: 9px;">DESARROLLADOR WEB</span>
+                    </a>
                 </div>
             </div>
         </div>
