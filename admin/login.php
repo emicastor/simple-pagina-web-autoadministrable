@@ -1,7 +1,7 @@
-<?php 
+<?php
 session_start();
 if ($_POST) {
-    include 'config/bd.php'; 
+    include 'config/bd.php';
     $usuario = (isset($_POST['usuario'])) ? trim($_POST['usuario']) : '';
     $password = (isset($_POST['password'])) ? trim($_POST['password']) : '';
     $sql = "SELECT 
@@ -18,15 +18,15 @@ if ($_POST) {
     $sentencia->bindParam(':password', $password);
     $sentencia->execute();
     $lista_usuarios = $sentencia->fetch(PDO::FETCH_LAZY);
-    print_r($lista_usuarios);
+    // print_r($lista_usuarios);
 
     if ($lista_usuarios['num_usuario'] > 0) {
-        print_r('El usuario y contraseña existe');
+        // print_r('El usuario y contraseña existe');
         $_SESSION['usuario'] = $lista_usuarios['usuario'];
         $_SESSION['logueado'] = true;
         header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/');
     } else {
-        print_r('El usuario o la contraseña no existe.');
+        $mensaje = '<strong>Error:</strong> El usuario o contraseña son incorrectos.';
     }
 }
 
@@ -57,6 +57,12 @@ if ($_POST) {
                     <h1 class="card-header bg-white fs-2 py-4 fw-semibold">Inicio de sesión</h1>
                     <div class="card-body">
                         <form action="" method="post">
+                            <?php if (isset($mensaje)) { ?>
+                                <div class="alert text-danger alert-dismissible fade show border border-danger text-start" role="alert">
+                                    <?= $mensaje; ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php } ?>
                             <div class="form-floating mt-3 mb-3">
                                 <input type="text" class="form-control shadow-sm" name="usuario" id="usuario" placeholder="Nombre de usuario">
                                 <label for="usuario">Nombre de usuario</label>
@@ -74,11 +80,8 @@ if ($_POST) {
             </div>
         </div>
 
-    </main>
+        <?php include 'templates/footer.php'; ?>
 
-    <footer>
-
-    </footer>
 </body>
 
 </html>
