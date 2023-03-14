@@ -1,5 +1,18 @@
-<?php 
+<?php
 include '../../config/bd.php';
+
+if (isset($_GET['id'])) {
+    $idABorrar = (isset($_GET['id'])) ? $_GET['id'] : "";
+    $sql = "DELETE 
+            FROM 
+            tbl_configuraciones 
+            WHERE 
+            id=:id";
+    $sentencia = $conexion->prepare($sql);
+    $sentencia->bindParam(':id', $idABorrar);
+    $sentencia->execute();
+    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/configuraciones/');
+}
 
 $sql = "SELECT * 
         FROM 
@@ -9,7 +22,7 @@ $sentencia->execute();
 $lista_configuraciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 
-include '../../templates/header.php'; 
+include '../../templates/header.php';
 ?>
 
 <!-- En el CRUD solo vamos a permitir la edición. No se va a poder agregar ni borrar ningún registro.
@@ -24,12 +37,12 @@ Las configuraciones ya deben estar predefinidas para evitar así que el usuario 
     Volver
 </a>
 <div>
-    <a class="btn btn-primary fw-semibold mb-4 me-2" href="crear" role="button">Nueva configuración</a>
+    <a class="btn btn-primary fw-semibold mb-4 me-2 d-none" href="crear" role="button">Nueva configuración</a>
 </div>
 
 <div class="card shadow">
     <div class="card-header py-3 fs-5 fw-semibold text-center">
-       Configuraciones de su página web
+        Configuraciones de su página web
     </div>
     <div class="card-body">
 
@@ -46,14 +59,18 @@ Las configuraciones ya deben estar predefinidas para evitar así que el usuario 
                 <tbody>
                     <?php foreach ($lista_configuraciones as $config) { ?>
                         <tr>
-                            <td scope="row"> <?= $usuario['id']; ?> </td>
-                            <td> <?= $usuario['usuario']; ?> </td>
-                            <td> <?= $usuario['correo']; ?> </td>
-                            <td></td>
+                            <td scope="row"> <?= $config['id']; ?> </td>
+                            <td> <?= $config['nombreconfiguracion']; ?> </td>
+                            <td> <?= $config['valor']; ?> </td>
                             <td>
-                                <a name="" id="" class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>secciones/usuarios/editar?id=<?= $usuario['id']; ?>" role="button" title="Editar el registro">
-                                    Editar
-                                </a>
+                                <div class="d-flex gap-2">
+                                    <a name="" id="" class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>secciones/configuraciones/editar?id=<?= $config['id']; ?>" role="button" title="Editar el registro">
+                                        Editar
+                                    </a>
+                                    <a name="" id="" class="btn btn-outline-secondary btn-sm fw-semibold d-none" href="<?= $url_base; ?>secciones/configuraciones/?id=<?= $config['id']; ?>" role="button" title="Eliminar el registro">
+                                        Eliminar
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php } ?>
