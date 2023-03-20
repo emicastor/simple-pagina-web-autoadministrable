@@ -3,7 +3,7 @@
 $servidor = 'localhost';
 $bd = 'simple_pagina_web_autoadministrable';
 $usuario = 'root';
-$password = '#Emiliano.32';
+$password = '';
 
 try {
     $conexion = new PDO("mysql:host=$servidor;dbname=$bd",$usuario,$password);
