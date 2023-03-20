@@ -29,7 +29,6 @@ if ($_POST) {
         $mensaje = '<strong>Error:</strong> El usuario o contraseña son incorrectos.';
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
