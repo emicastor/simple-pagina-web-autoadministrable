@@ -37,16 +37,18 @@ if ($_POST) {
     $sentencia->bindParam(':nombreconfiguracion', $nombreconfiguracion);
     $sentencia->bindParam(':valor', $valor);
     $sentencia->execute();
-    $mensaje = 'Configuración modificada con éxito.';
-    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/configuraciones?mensaje='.$mensaje);
-
+    
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/editar.js"></script>';
 }
 
 include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------------->
-
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Configuraciones</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>secciones/configuraciones" role="button">
@@ -56,7 +58,7 @@ include '../../templates/header.php';
     Volver
 </a>
 <div>
-    <a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>secciones/usuarios" role="button">Ver lista de configuraciones</a>
+    <a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>secciones/configuraciones" role="button">Ver lista de configuraciones</a>
 </div>
 
 <div class="card shadow">
@@ -73,7 +75,7 @@ include '../../templates/header.php';
                     </div>
                     <div class="mb-3">
                         <label for="nombreconfiguracion" class="form-label fw-semibold">Nombre de la configuración</label>
-                        <input value="<?= $nombreconfiguracion; ?>" type="text" class="form-control shadow-sm" name="nombreconfiguracion" id="nombreconfiguracion" aria-describedby="helpId" placeholder="">
+                        <input value="<?= $nombreconfiguracion; ?>" type="text" class="form-control shadow-sm" name="nombreconfiguracion" id="nombreconfiguracion" aria-describedby="helpId" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="valor" class="form-label fw-semibold">Texto a escribir</label>

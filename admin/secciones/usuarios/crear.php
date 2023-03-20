@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../../config/bd.php';
 
 if ($_POST) {
@@ -6,7 +6,7 @@ if ($_POST) {
     $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : "";
     $password = (isset($_POST['password'])) ? $_POST['password'] : "";
     $correo = (isset($_POST['correo'])) ? $_POST['correo'] : "";
-    
+
     $sql = "INSERT INTO 
             tbl_usuarios (usuario, password, correo) 
             VALUES 
@@ -16,12 +16,17 @@ if ($_POST) {
     $sentencia->bindParam(':password', $password);
     $sentencia->bindParam(':correo', $correo);
     $sentencia->execute();
+
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/crear.js"></script>';
 }
-include '../../templates/header.php'; 
+include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------------->
-
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Usuarios</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/usuarios" role="button">
@@ -31,7 +36,7 @@ include '../../templates/header.php';
     Volver
 </a>
 <div>
-<a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>/secciones/usuarios" role="button">Ver lista de usuarios</a>
+    <a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>/secciones/usuarios" role="button">Ver lista de usuarios</a>
 </div>
 
 <div class="card shadow">

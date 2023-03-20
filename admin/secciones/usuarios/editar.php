@@ -40,15 +40,18 @@ if ($_POST) {
     $sentencia->bindParam(':password', $password);
     $sentencia->bindParam(':correo', $correo);
     $sentencia->execute();
-    $mensaje = 'Usuario modificado con éxito.';
-    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/usuarios?mensaje='.$mensaje);
+
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/editar.js"></script>';
 }
 
 include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------------->
-
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Usuarios</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/usuarios" role="button">

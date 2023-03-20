@@ -1,5 +1,5 @@
-<?php 
-include '../../config/bd.php'; 
+<?php
+include '../../config/bd.php';
 
 if ($_POST) {
     $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : "";
@@ -29,13 +29,19 @@ if ($_POST) {
     $sentencia->bindParam(':facebook', $facebook);
     $sentencia->bindParam(':linkedin', $linkedin);
     $sentencia->execute();
+
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/crear.js"></script>';
 }
 
-include '../../templates/header.php'; 
+include '../../templates/header.php';
 ?>
 
 
 <!---------------------------------------------------->
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Equipo</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/equipo" role="button">
@@ -82,9 +88,9 @@ include '../../templates/header.php';
                         <span class="input-group-text" id="inputGroup-sizing-default">www.linkedin.com/in/</span>
                         <input type="text" class="form-control shadow-sm" name="linkedin" id="linkedin" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Nombre de usuario">
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Agregar</button>
-                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>/secciones/equipo" role="button">Cancelar</a>
+                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>secciones/equipo" role="button">Cancelar</a>
                 </form>
             </div>
         </div>

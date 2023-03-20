@@ -13,6 +13,9 @@ if ($_POST) {
     $sentencia->bindParam(':titulo', $titulo);
     $sentencia->bindParam(':descripcion', $descripcion);
     $sentencia->execute();
+
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/crear.js"></script>';
 }
 
 include '../../templates/header.php';
@@ -20,7 +23,9 @@ include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------------->
-
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Servicios</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/servicios" role="button">
@@ -30,8 +35,8 @@ include '../../templates/header.php';
     Volver
 </a>
 <div>
-<a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>/secciones/servicios" role="button">Ver lista de servicios</a>
-<a class="btn btn-warning fw-semibold mb-4" href="http://localhost/simple-pagina-web-autoadministrable/#servicios" role="button">Ver cambios realizados</a>
+    <a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>/secciones/servicios" role="button">Ver lista de servicios</a>
+    <a class="btn btn-warning fw-semibold mb-4" href="http://localhost/simple-pagina-web-autoadministrable/#servicios" role="button">Ver cambios realizados</a>
 </div>
 
 <div class="card shadow">
@@ -56,7 +61,7 @@ include '../../templates/header.php';
                     </div>
 
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Agregar</button>
-                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>/secciones/servicios" role="button">Cancelar</a>
+                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>secciones/servicios" role="button">Cancelar</a>
                 </form>
             </div>
         </div>

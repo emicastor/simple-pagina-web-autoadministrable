@@ -1,6 +1,5 @@
-<?php 
-include '../../config/bd.php'; 
-include '../../templates/header.php'; 
+<?php
+include '../../config/bd.php';
 
 if ($_POST) {
     $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : "";
@@ -26,12 +25,17 @@ if ($_POST) {
     $sentencia->bindParam(':descripcion', $descripcion);
     $sentencia->bindParam(':imagen', $nombreArchivoImagen);
     $sentencia->execute();
-}
 
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/crear.js"></script>';
+}
+include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------------->
-
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Nosotros</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/nosotros" role="button">
@@ -69,9 +73,9 @@ if ($_POST) {
                         <label for="imagen" class="form-label fw-semibold">Imagen</label>
                         <input type="file" class="form-control shadow-sm" name="imagen" id="imagen" aria-describedby="helpId" placeholder="">
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Agregar</button>
-                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>/secciones/nosotros" role="button">Cancelar</a>
+                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>secciones/nosotros" role="button">Cancelar</a>
                 </form>
             </div>
         </div>

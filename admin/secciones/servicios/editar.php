@@ -3,7 +3,7 @@ include '../../config/bd.php';
 
 // Recupeamos la información.
 if (isset($_GET['id'])) {
-    $idAEditar = isset($_GET['id']) ? $_GET['id'] : "";
+    $idAEditar = (isset($_GET['id'])) ? $_GET['id'] : "";
     $sql = "SELECT * FROM tbl_servicios WHERE id=:id";
     $sentencia = $conexion->prepare($sql);
     $sentencia->bindParam(':id', $idAEditar);
@@ -33,18 +33,18 @@ if ($_POST) {
     $sentencia->bindParam(':titulo', $titulo);
     $sentencia->bindParam(':descripcion', $descripcion);
     $sentencia->execute();
-    $mensaje = 'Servicio modificado con éxito.';
-    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/servicios/?mensaje='.$mensaje);
 
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/editar.js"></script>';
 }
 
 include '../../templates/header.php';
 ?>
 
-
-
 <!---------------------------------------------------->
-
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Servicios</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/servicios" role="button">
@@ -69,7 +69,7 @@ include '../../templates/header.php';
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="id" class="form-label fw-semibold">Id</label>
-                        <input value="<?= $idAEditar ; ?>" type="text" class="form-control shadow-sm" name="id" id="id" aria-describedby="helpId" readonly>
+                        <input value="<?= $idAEditar; ?>" type="text" class="form-control shadow-sm" name="id" id="id" aria-describedby="helpId" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="icono" class="form-label fw-semibold">Ícono</label>
@@ -85,18 +85,11 @@ include '../../templates/header.php';
                     </div>
 
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Actualizar</button>
-                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>/secciones/servicios" role="button">Cancelar</a>
+                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>secciones/servicios" role="button">Cancelar</a>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 <?php include '../../templates/footer.php'; ?>

@@ -1,4 +1,10 @@
 <?php
+// Para el redireccionamiento del sweetalert - inicio //
+$url = $_SERVER["REQUEST_URI"];
+$nombreSeccion =  explode("/", $url);
+$nombreSeccion[4];
+// Para el redireccionamiento del sweetalert - fin //
+
 include '../../config/bd.php';
 
 if (isset($_GET['id'])) {
@@ -90,17 +96,37 @@ if ($_POST) {
         $sentencia->execute();
     }
 
-    $mensaje = 'Proyecto modificado con éxito.';
-    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/nosotros/?mensaje=' . $mensaje);
+    /* OPCIÓN 1 - Escribiendo el script */
+    /* $modal = '<script>
+            // Para el redireccionamiento del SweetAlert con JS en vez de php - inicio // 
+            //const url = window.location.pathname; // pathname = me trae todo la url sin el dominio.
+            //$nombreSeccion = url.split("/"); // split es el equivalente a explode() de php.
+            //console.log($nombreSeccion[4]);
+            // Para el redireccionamiento del SweetAlert con JS en vez de php - fin // 
+
+            Swal.fire({
+                icon: "success",
+                title: "Registro modificado con éxito",
+                // text: "Something went wrong!",
+                showConfirmButton: false,
+            }, setTimeout(() => {
+                // Nos redirije luego de borrar a la página de usuarios
+                window.location.href = "http://localhost/simple-pagina-web-autoadministrable/admin/secciones/' . $nombreSeccion[4] . '";
+            }, 1500));
+         </script>';
+    */
+
+    /* OPCIÓN 2 - LLamando al script */
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/editar.js"></script>';
 }
-
-
-
 
 include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------------->
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 
 <h1 class="mb-4 pb-3 border-bottom">Nosotros</h1>
 
@@ -147,7 +173,7 @@ include '../../templates/header.php';
                     </div>
 
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Actualizar</button>
-                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>/secciones/nosotros" role="button">Cancelar</a>
+                    <a class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>secciones/nosotros" role="button">Cancelar</a>
                 </form>
             </div>
         </div>

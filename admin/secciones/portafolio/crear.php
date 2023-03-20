@@ -29,19 +29,24 @@ if ($_POST) {
     $sentencia = $conexion->prepare($sql);
     $sentencia->bindParam(':titulo', $titulo);
     $sentencia->bindParam(':subtitulo', $subtitulo);
-    $sentencia->bindParam(':imagen', $imagen);
+    $sentencia->bindParam(':imagen', $nombreArchivoImagen);
     $sentencia->bindParam(':descripcion', $descripcion);
     $sentencia->bindParam(':cliente', $cliente);
     $sentencia->bindParam(':categoria', $categoria);
     $sentencia->bindParam(':url', $url);
     $sentencia->execute();
+
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/crear.js"></script>';
 }
 include '../../templates/header.php';
 ?>
 
 
 <!---------------------------------------------------->
-
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Portafolio</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/portafolio" role="button">
@@ -94,7 +99,7 @@ include '../../templates/header.php';
                     </div>
 
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Agregar</button>
-                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>/secciones/portafolio" role="button">Cancelar</a>
+                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>secciones/portafolio" role="button">Cancelar</a>
                 </form>
             </div>
         </div>

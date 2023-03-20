@@ -94,14 +94,17 @@ if ($_POST) {
         $sentencia->execute();
     }
 
-    $mensaje = 'Proyecto modificado con éxito.';
-    header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/equipo/?mensaje=' . $mensaje);
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/editar.js"></script>';
 }
 
 include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------------->
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Equipo</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>/secciones/equipo" role="button">
@@ -156,7 +159,7 @@ include '../../templates/header.php';
                     </div>
 
                     <button type="submit" class="btn btn-primary fw-semibold px-md-4 py-md-2 me-2">Actualizar</button>
-                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>/secciones/equipo" role="button">Cancelar</a>
+                    <a name="" id="" class="btn btn-outline-secondary fw-semibold px-md-4 py-md-2" href="<?= $url_base; ?>secciones/equipo" role="button">Cancelar</a>
                 </form>
             </div>
         </div>
