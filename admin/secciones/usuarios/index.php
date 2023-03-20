@@ -45,7 +45,7 @@ include '../../templates/header.php';
     <div class="card-body">
 
         <div class="table-responsive-sm">
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>

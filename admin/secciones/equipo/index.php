@@ -64,7 +64,7 @@ include '../../templates/header.php';
     <div class="card-body">
 
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -109,7 +109,7 @@ include '../../templates/header.php';
                                     <a class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>secciones/equipo/editar?id=<?= $item['id']; ?>" role="button" title="Editar el registro">
                                         Editar
                                     </a>
-                                    <a class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>/secciones/equipo/?id=<?= $item['id']; ?>" role="button" title="Eliminar el registro">
+                                    <a class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>secciones/equipo/?id=<?= $item['id']; ?>" role="button" title="Eliminar el registro">
                                         Eliminar
                                     </a>
                                 </div>

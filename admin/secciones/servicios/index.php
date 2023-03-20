@@ -2,7 +2,7 @@
 include '../../config/bd.php';
 
 if (isset($_GET['id'])) {
-    $idABorrar = isset($_GET['id']) ? $_GET['id'] : "";
+    $idABorrar = (isset($_GET['id'])) ? $_GET['id'] : "";
     $sql = "DELETE FROM tbl_servicios WHERE id=:id";
     $sentencia = $conexion->prepare($sql);
     $sentencia->bindParam(':id', $idABorrar);
@@ -10,7 +10,9 @@ if (isset($_GET['id'])) {
     header('Location: http://localhost/simple-pagina-web-autoadministrable/admin/secciones/servicios/');
 }
 
-$sql = "SELECT * FROM tbl_servicios";
+$sql = "SELECT * 
+        FROM 
+        tbl_servicios";
 $sentencia = $conexion->prepare($sql);
 $sentencia->execute();
 $lista_servicios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
@@ -33,12 +35,12 @@ include '../../templates/header.php';
 
 <div class="card shadow">
     <div class="card-header py-3 fs-5 fw-semibold text-center">
-       Lista de servicios publicados en su página web
+        Servicios publicados en su página web
     </div>
     <div class="card-body">
 
-        <div class="table-responsive-sm">
-            <table class="table">
+        <div class="table-responsive">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -54,13 +56,20 @@ include '../../templates/header.php';
                             <td scope="row"> <?= $servicio['id']; ?> </td>
                             <td> <?= $servicio['icono']; ?> </td>
                             <td> <?= $servicio['titulo']; ?> </td>
-                            <td> <?= $servicio['descripcion']; ?> </td>
+                            <td>
+                                <a class="text-decoration-none badge rounded-pill text-bg-secondary mb-1" data-bs-toggle="collapse" href="#<?= $servicio['id']; ?>" role="button" aria-expanded="false" aria-controls="<?= $servicio['id'] ?>">
+                                    Ver
+                                </a>
+                                <div class="collapse" id="<?= $servicio['id']; ?>">
+                                    <?= $servicio['descripcion']; ?>
+                                </div>
+                            </td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <a name="" id="" class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>/secciones/servicios/editar?id=<?= $servicio['id']; ?>" role="button" title="Editar el registro">
+                                    <a name="" id="" class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>secciones/servicios/editar?id=<?= $servicio['id']; ?>" role="button" title="Editar el registro">
                                         Editar
                                     </a>
-                                    <a name="" id="" class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>/secciones/servicios/?id=<?= $servicio['id']; ?>" role="button" title="Eliminar el registro">
+                                    <a name="" id="" class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>secciones/servicios/?id=<?= $servicio['id']; ?>" role="button" title="Eliminar el registro">
                                         Eliminar
                                     </a>
                                 </div>

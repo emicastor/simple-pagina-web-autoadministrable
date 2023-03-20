@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../../config/bd.php';
 
 if (isset($_GET['id'])) {
@@ -39,7 +39,7 @@ $sentencia = $conexion->prepare($sql);
 $sentencia->execute();
 $lista_nosotros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
-include '../../templates/header.php'; 
+include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------->
@@ -63,7 +63,7 @@ include '../../templates/header.php';
     <div class="card-body">
 
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -80,7 +80,7 @@ include '../../templates/header.php';
                             <td scope="row"> <?= $item['id']; ?> </td>
                             <td> <?= $item['fecha']; ?> </td>
                             <td> <?= $item['titulo']; ?> </td>
-                            <td> 
+                            <td>
                                 <a class="text-decoration-none badge rounded-pill text-bg-secondary mb-1" data-bs-toggle="collapse" href="#<?= $item['id']; ?>" role="button" aria-expanded="false" aria-controls="<?= $item['id'] ?>">
                                     Ver
                                 </a>
@@ -89,14 +89,14 @@ include '../../templates/header.php';
                                 </div>
                             </td>
                             <td>
-                                <img class="img-fluid rounded-2" src="../../../assets/img/nosotros/<?= $item['imagen']; ?>" alt="" width="100" height="100">  
+                                <img class="img-fluid rounded-2 img border" src="../../../assets/img/nosotros/<?= $item['imagen']; ?>" alt="" width="100" height="100">
                             </td>
                             <td>
                                 <div class="d-flex gap-2">
                                     <a class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>secciones/nosotros/editar?id=<?= $item['id']; ?>" role="button" title="Editar el registro">
                                         Editar
                                     </a>
-                                    <a class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>/secciones/nosotros/?id=<?= $item['id']; ?>" role="button" title="Eliminar el registro">
+                                    <a class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>secciones/nosotros/?id=<?= $item['id']; ?>" role="button" title="Eliminar el registro">
                                         Eliminar
                                     </a>
                                 </div>

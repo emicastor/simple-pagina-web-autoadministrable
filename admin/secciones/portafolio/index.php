@@ -2,7 +2,7 @@
 include '../../config/bd.php';
 
 if (isset($_GET['id'])) {
-    $idABorrar = isset($_GET['id']) ? $_GET['id'] : "";
+    $idABorrar = (isset($_GET['id'])) ? $_GET['id'] : "";
 
     // Borramos la imagen de la carpeta portafolio
     $sql = "SELECT
@@ -61,7 +61,7 @@ include '../../templates/header.php';
     <div class="card-body">
 
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -82,13 +82,13 @@ include '../../templates/header.php';
                             <td> <?= $proyecto['titulo']; ?> </td>
                             <td> <?= $proyecto['subtitulo']; ?> </td>
                             <td>
-                                <img class="img-fluid rounded-2" src="../../../assets/img/portafolio/<?= $proyecto['imagen']; ?>" alt="" width="100" height="100">  
+                                <img class="img-fluid rounded-2 img border" src="../../../assets/img/portafolio/<?= $proyecto['imagen']; ?>" alt="" width="100" height="100">  
                             </td>
                             <td> 
-                                <a class="text-decoration-none badge rounded-pill text-bg-secondary mb-1" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <a class="text-decoration-none badge rounded-pill text-bg-secondary mb-1" data-bs-toggle="collapse" href="#<?= $proyecto['id']; ?>" role="button" aria-expanded="false" aria-controls="<?= $proyecto['id'] ?>">
                                     Ver
                                 </a>
-                                <div class="collapse" id="collapseExample">
+                                <div class="collapse" id="<?= $proyecto['id']; ?>">
                                     <?= $proyecto['descripcion']; ?>
                                 </div>
                             </td>
@@ -100,7 +100,7 @@ include '../../templates/header.php';
                                     <a class="btn btn-primary btn-sm fw-semibold px-3" href="<?= $url_base; ?>secciones/portafolio/editar?id=<?= $proyecto['id']; ?>" role="button" title="Editar el registro">
                                         Editar
                                     </a>
-                                    <a class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>/secciones/portafolio/?id=<?= $proyecto['id']; ?>" role="button" title="Eliminar el registro">
+                                    <a class="btn btn-outline-secondary btn-sm fw-semibold" href="<?= $url_base; ?>secciones/portafolio/?id=<?= $proyecto['id']; ?>" role="button" title="Eliminar el registro">
                                         Eliminar
                                     </a>
                                 </div>
