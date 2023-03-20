@@ -24,6 +24,24 @@ $sql = "SELECT * FROM tbl_equipo";
 $sentencia = $conexion->prepare($sql);
 $sentencia->execute();
 $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+// Sección configuración
+$sql = "SELECT * FROM tbl_configuraciones";
+$sentencia = $conexion->prepare($sql);
+$sentencia->execute();
+$lista_configuraciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+// // Para evitar poner los índices del array (los [] con números), creo un array asociativo y luego uso ese array con el nombre que le quiera dar entre []
+// $nueva_lista = [
+//     'titulo_principal' => $lista_configuraciones[0]['valor']
+// ];
+// // Así quedaría en el html
+// <?= $nueva_lista['titulo_principal']['valor'];
+
+// Debug
+// print_r('<pre>');
+// print_r($lista_configuraciones);
+// print_r('<pre>');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,9 +51,26 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>José Aragón - Fotógrafo freelance</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -44,22 +79,15 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="assets/css/styles.css" rel="stylesheet" />
 
-    <style>
-        .img {
-            max-inline-size: 100%;
-            block-size: auto;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            object-position: center center;
-        }
-    </style>
 </head>
 
 <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="..." /></a>
+            <a class="navbar-brand" href="#page-top">
+                <span class="fw-bold fs-4"><?= $lista_configuraciones[20]['valor']; ?></span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars ms-1"></i>
@@ -78,17 +106,17 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <!-- Masthead-->
     <header class="masthead">
         <div class="container">
-            <div class="masthead-subheading">Welcome To Our Studio!</div>
-            <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-primary btn-xl text-dark fw-semibold" href="#servicios">COTIZACIÓN ¡GRATIS!</a>
+            <div class="masthead-subheading"><?= $lista_configuraciones[0]['valor']; ?></div>
+            <div class="masthead-heading text-uppercase"><?= $lista_configuraciones[1]['valor']; ?></div>
+            <a class="btn btn-primary btn-xl text-dark fw-semibold text-uppercase" href="<?= $lista_configuraciones[3]['valor']; ?>" role="button"><?= $lista_configuraciones[2]['valor']; ?></a>
         </div>
     </header>
-    <!-- Services-->
+    <!-- Servicios-->
     <section class="page-section" id="servicios">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Servicios</h2>
-                <h3 class="section-subheading text-muted">El low-cost que te conviene</h3>
+                <h2 class="section-heading text-uppercase"><?= $lista_configuraciones[4]['valor']; ?></h2>
+                <h3 class="section-subheading text-muted"><?= $lista_configuraciones[5]['valor']; ?></h3>
             </div>
             <div class="row text-center">
 
@@ -110,8 +138,8 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section bg-light" id="portafolio">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Portafolio</h2>
-                <h3 class="section-subheading text-muted">Revisá mis últimos trabajos</h3>
+                <h2 class="section-heading text-uppercase"><?= $lista_configuraciones[6]['valor']; ?></h2>
+                <h3 class="section-subheading text-muted"><?= $lista_configuraciones[7]['valor']; ?></h3>
             </div>
             <div class="row">
                 <!-- Portfolio items -->
@@ -122,7 +150,7 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid img" src="assets/img/portafolio/<?= $proyecto['imagen']; ?>" alt="..." />
+                                <img class="img-fluid img" loading="lazy" src="assets/img/portafolio/<?= $proyecto['imagen']; ?>" alt="..." />
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading"><?= $proyecto['titulo']; ?></div>
@@ -143,7 +171,7 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                                 <!-- Project details-->
                                                 <h2 class="text-uppercase"><?= $proyecto['titulo']; ?></h2>
                                                 <p class="item-intro text-muted"><?= $proyecto['subtitulo']; ?></p>
-                                                <img class="img-fluid d-block mx-auto" src="assets/img/portafolio/<?= $proyecto['imagen']; ?>" alt="..." />
+                                                <img class="img-fluid d-block mx-auto" loading="lazy" src="assets/img/portafolio/<?= $proyecto['imagen']; ?>" alt="..." />
                                                 <p><?= $proyecto['descripcion']; ?></p>
                                                 <ul class="list-inline">
                                                     <li>
@@ -178,8 +206,8 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section" id="nosotros">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Historia</h2>
-                <h3 class="section-subheading text-muted">El paso a paso para llegar a donde estoy hoy</h3>
+                <h2 class="section-heading text-uppercase"><?= $lista_configuraciones[8]['valor']; ?></h2>
+                <h3 class="section-subheading text-muted"><?= $lista_configuraciones[9]['valor']; ?></h3>
             </div>
             <ul class="timeline">
                 <?php
@@ -187,7 +215,7 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($lista_nosotros as $registro) { ?>
                     <!-- Si el resto es igual a 0, quiere decir que es par y entonces va a estar ubicado del lado derecho de la pantalla ya que agrego a <li> la clase timeline-inverted -->
                     <li <?= (($cont % 2) == 0) ? 'class="timeline-inverted"' : ""; ?>>
-                        <div class="timeline-image"><img class="rounded-circle img-fluid img" src="assets/img/nosotros/<?= $registro['imagen']; ?>" alt="..." /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid img" loading="lazy" src="assets/img/nosotros/<?= $registro['imagen']; ?>" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4><?= $registro['fecha']; ?></h4>
@@ -204,12 +232,8 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
                 <li class="timeline-inverted">
                     <div class="timeline-image">
-                        <h4>
-                            ¡Vos podés
-                            <br />
-                            ser el
-                            <br />
-                            <strong>próximo!</strong>
+                        <h4 class="pt-3">
+                            <?= $lista_configuraciones[19]['valor']; ?>
                         </h4>
                     </div>
                 </li>
@@ -217,17 +241,17 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
     <!-- Equipo-->
-    <section class="page-section bg-light" id="team">
+    <section class="page-section bg-light" id="equipo">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Equipo</h2>
-                <h3 class="section-subheading text-muted">Me acompañan los mejores profesionales en su rubro</h3>
+                <h2 class="section-heading text-uppercase"><?= $lista_configuraciones[10]['valor']; ?></h2>
+                <h3 class="section-subheading text-muted"><?= $lista_configuraciones[11]['valor']; ?></h3>
             </div>
             <div class="row">
                 <?php foreach ($lista_equipo as $item) { ?>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle img" src="assets/img/equipo/<?= $item['imagen']; ?>" alt="..." />
+                            <img class="mx-auto rounded-circle img" loading="lazy" src="assets/img/equipo/<?= $item['imagen']; ?>" alt="..." />
                             <h4><?= $item['nombrecompleto']; ?></h4>
                             <p class="text-muted"><?= $item['puesto']; ?></p>
                             <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/<?= $item['twitter']; ?>" aria-label="Parveen Anand Twitter Profile" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -268,11 +292,11 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         <div class="container">
             <div class="row text-center text-md-start">
                 <div class="col-lg-9 text-white">
-                    <h2 class="section-heading">Siempre habrá una imagen que recordar</h2>
+                    <h2 class="section-heading"><?= $lista_configuraciones[12]['valor']; ?></h2>
                     <h3 class="mb-5 mb-lg-0">Y nosotros estaremos allí para hacerlo <span class="text-decoration-underline">realidad</span></h3>
                 </div>
                 <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                    <a class="btn btn-primary btn-xl text-dark fw-semibold" href="mailto:contacto@emicastor.com.ar" role="button">CONTACTANOS</a>
+                    <a class="btn btn-primary btn-xl text-dark fw-semibold text-uppercase" href="<?= $lista_configuraciones[15]['valor']; ?>" role="button"><?= $lista_configuraciones[14]['valor']; ?></a>
                 </div>
             </div>
         </div>
@@ -284,9 +308,9 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             <div class="row align-items-center">
                 <div class="col-lg-4 text-lg-start mt-2 mt-lg-0 order-3 order-lg-0" id="year"></div>
                 <div class="col-lg-4 my-3 my-lg-0 order-2 order-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/<?= $lista_configuraciones[16]['valor']; ?>" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="https://facebook.com/<?= $lista_configuraciones[17]['valor']; ?>" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="https://linkedin.com/in/<?= $lista_configuraciones[18]['valor']; ?>" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <div class="col-lg-4 text-lg-end">
                     <ul class="nav d-flex justify-content-center">
@@ -301,7 +325,7 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 <div class="col-6 col-sm-4 col-lg-2 mx-auto">
                     <a href="https://emicastor.com.ar/agencia" class="d-flex flex-column align-items-center text-decoration-none mb-2 pb-2">
                         <span class="text-dark fw-semibold">Emiliano Castor</span>
-                        <span class="px-1 bg-dark text-white fw-semibold" style="font-size: 9px;">DESARROLLADOR WEB</span>
+                        <span class="px-1 bg-dark text-white fw-bold py-1" style="font-size: 8.5px;">DESARROLLADOR WEB</span>
                     </a>
                 </div>
             </div>
@@ -312,11 +336,7 @@ $lista_equipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="assets/js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
 </body>
 
 </html>
