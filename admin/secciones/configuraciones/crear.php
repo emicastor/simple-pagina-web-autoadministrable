@@ -1,11 +1,11 @@
-<?php 
+<?php
 include '../../config/bd.php';
 
 if ($_POST) {
     // Recibimos los valores envíados por el formulario.
     $nombreconfiguracion = (isset($_POST['nombreconfiguracion'])) ? $_POST['nombreconfiguracion'] : "";
     $valor = (isset($_POST['valor'])) ? $_POST['valor'] : "";
-    
+
     $sql = "INSERT INTO 
             tbl_configuraciones (nombreconfiguracion, valor) 
             VALUES 
@@ -14,13 +14,18 @@ if ($_POST) {
     $sentencia->bindParam(':nombreconfiguracion', $nombreconfiguracion);
     $sentencia->bindParam(':valor', $valor);
     $sentencia->execute();
+
+    // Modal hecho con la librería SweetAlert2.
+    $modal = '<script src="http://localhost/simple-pagina-web-autoadministrable/admin/assets/js/crear.js"></script>';
 }
 
-include '../../templates/header.php'; 
+include '../../templates/header.php';
 ?>
 
 <!---------------------------------------------------->
-
+<?php if (isset($modal)) {
+    echo $modal;
+} ?>
 <h1 class="mb-4 pb-3 border-bottom">Configuraciones</h1>
 
 <a class="btn btn-outline-secondary fw-semibold mb-4" href="<?= $url_base; ?>secciones/configuraciones" role="button">
@@ -30,7 +35,7 @@ include '../../templates/header.php';
     Volver
 </a>
 <div>
-<a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>secciones/usuarios" role="button">Ver lista de configuraciones</a>
+    <a class="btn btn-primary fw-semibold mb-4 me-2" href="<?= $url_base; ?>secciones/configuraciones" role="button">Ver lista de configuraciones</a>
 </div>
 
 <div class="card shadow">
